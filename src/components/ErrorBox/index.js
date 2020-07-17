@@ -18,22 +18,19 @@ const ErrorBox = ({ error: { message, visible }, hideError }) =>
     </Container>
   );
 
-ErrorBox.PropTypes = {
+ErrorBox.propTypes = {
   hideError: PropTypes.func.isRequired,
   error: PropTypes.shape({
     visible: PropTypes.bool,
-    message: PropTypes.string
-  }).isRequired
+    message: PropTypes.string,
+  }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  error: state.error
+const mapStateToProps = (state) => ({
+  error: state.error,
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(ErrorActions, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ErrorBox);
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorBox);

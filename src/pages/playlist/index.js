@@ -17,8 +17,8 @@ class Playlist extends Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
-        id: PropTypes.number
-      })
+        id: PropTypes.string,
+      }),
     }).isRequired,
     getPlaylistDetailsRequest: PropTypes.func.isRequired,
     playlistDetails: PropTypes.shape({
@@ -31,20 +31,20 @@ class Playlist extends Component {
             id: PropTypes.number,
             title: PropTypes.title,
             author: PropTypes.string,
-            album: PropTypes.string
+            album: PropTypes.string,
           })
-        )
+        ),
       }),
-      loading: PropTypes.bool
+      loading: PropTypes.bool,
     }).isRequired,
     loadSong: PropTypes.func.isRequired,
     currentSong: PropTypes.shape({
-      id: PropTypes.number
-    }).isRequired
+      id: PropTypes.number,
+    }),
   };
 
   state = {
-    selectedSong: null
+    selectedSong: null,
   };
 
   componentDidMount() {
@@ -79,13 +79,15 @@ class Playlist extends Component {
         </Header>
         <SongList cellPadding={0} cellSpacing={0}>
           <thead>
-            <th />
-            <th>Título</th>
-            <th>Artista</th>
-            <th>Álbum</th>
-            <th>
-              <img src={ClockIcon} alt="Duração" />
-            </th>
+            <tr>
+              <th />
+              <th>Título</th>
+              <th>Artista</th>
+              <th>Álbum</th>
+              <th>
+                <img src={ClockIcon} alt="Duração" />
+              </th>
+            </tr>
           </thead>
           <tbody>
             {!playlist.songs ? (
@@ -93,7 +95,7 @@ class Playlist extends Component {
                 <td colSpan={5}>Nenhuma música cadastrada</td>
               </tr>
             ) : (
-              playlist.songs.map(song => (
+              playlist.songs.map((song) => (
                 <SongItem
                   key={song.id}
                   onClick={() => this.setState({ selectedSong: song.id })}
@@ -133,15 +135,12 @@ class Playlist extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   playlistDetails: state.playlistDetails,
-  currentSong: state.player.currentSong
+  currentSong: state.player.currentSong,
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ ...PlaylistDetailsActions, ...PlayerActions }, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Playlist);
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

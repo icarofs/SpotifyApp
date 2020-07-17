@@ -14,7 +14,7 @@ import {
   Progress,
   Controls,
   Time,
-  ProgressSlider
+  ProgressSlider,
 } from "./styles";
 import VolumeIcon from "../../assets/images/volume.svg";
 import ShuffleIcon from "../../assets/images/shuffle.svg";
@@ -32,7 +32,7 @@ const Player = ({
   prev,
   playing,
   position,
-  duration
+  duration,
 }) => (
   <Container>
     {!!player.currentSong && (
@@ -116,17 +116,17 @@ Player.propTypes = {
       thumbnail: PropTypes.string,
       title: PropTypes.string,
       author: PropTypes.string,
-      file: PropTypes.string
+      file: PropTypes.string,
     }),
-    status: PropTypes.string
+    status: PropTypes.string,
   }).isRequired,
   play: PropTypes.func.isRequired,
   pause: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   prev: PropTypes.func.isRequired,
   playing: PropTypes.func.isRequired,
-  position: PropTypes.func.isRequired,
-  duration: PropTypes.func.isRequired
+  position: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
 };
 
 function msToTime(duration) {
@@ -138,16 +138,13 @@ function msToTime(duration) {
   return `${minutes}:${seconds}`;
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   player: state.player,
   position: msToTime(state.player.position),
-  duration: msToTime(state.player.duration)
+  duration: msToTime(state.player.duration),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(PlayerActions, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Player);
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
