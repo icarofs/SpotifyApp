@@ -19,11 +19,11 @@ class Sidebar extends Component {
       data: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number,
-          title: PropTypes.string
+          title: PropTypes.string,
         })
       ),
-      loading: PropTypes.bool
-    }).isRequired
+      loading: PropTypes.bool,
+    }).isRequired,
   };
 
   componentDidMount() {
@@ -39,7 +39,7 @@ class Sidebar extends Component {
               <Link to="/">Navegar</Link>
             </li>
             <li>
-              <a href="#">Rádio</a>
+              <a href="/#">Rádio</a>
             </li>
           </Nav>
           <Nav>
@@ -47,34 +47,34 @@ class Sidebar extends Component {
               <span>Sua Biblioteca</span>
             </li>
             <li>
-              <a href="#">Seu Daily Mix</a>
+              <a href="/#">Seu Daily Mix</a>
             </li>
             <li>
-              <a href="#">Tocados recentement</a>
-            </li>
-
-            <li>
-              <a href="#">Músicas</a>
-            </li>
-            <li>
-              <a href="#">Álbums</a>
+              <a href="/#">Tocados recentement</a>
             </li>
 
             <li>
-              <a href="#">Artistas</a>
+              <a href="/#">Músicas</a>
             </li>
             <li>
-              <a href="#">Estações</a>
+              <a href="/#">Álbums</a>
             </li>
 
             <li>
-              <a href="#">Arquivos locais</a>
+              <a href="/#">Artistas</a>
             </li>
             <li>
-              <a href="#">Vídeos</a>
+              <a href="/#">Estações</a>
+            </li>
+
+            <li>
+              <a href="/#">Arquivos locais</a>
             </li>
             <li>
-              <a href="#">Podcasts</a>
+              <a href="/#">Vídeos</a>
+            </li>
+            <li>
+              <a href="/#">Podcasts</a>
             </li>
           </Nav>
 
@@ -83,7 +83,7 @@ class Sidebar extends Component {
               <span>Playlists</span>
               {this.props.playlists.loading && <Loading />}
             </li>
-            {this.props.playlists.data.map(playlist => (
+            {this.props.playlists.data.map((playlist) => (
               <li key={playlist.id}>
                 <Link to={`/playlists/${playlist.id}`}>{playlist.title}</Link>
               </li>
@@ -99,14 +99,11 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  playlists: state.playlists
+const mapStateToProps = (state) => ({
+  playlists: state.playlists,
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(PlaylistsActions, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
